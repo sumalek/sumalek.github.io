@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sumal · MCA Student & Developer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f2ec;
+      --surface: #edeae2;
+      --ink: #1a1814;
+      --ink-muted: #6b6760;
+      --ink-faint: #b0ada7;
+      --accent: #c8521a;
+      --accent-light: #f0e0d4;
+      --border: #d8d4cc;
+      --mono: 'DM Mono', monospace;
+      --serif: 'DM Serif Display', serif;
+      --sans: 'DM Sans', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 4rem;
+      background: rgba(245, 242, 236, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      color: var(--ink);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--ink-muted);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--accent); }
+
+    /* SECTIONS */
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 6rem 4rem;
+    }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .section-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .section-label::after {
+      content: '';
+      display: inline-block;
+      width: 2.5rem;
+      height: 1px;
+      background: var(--accent);
+    }
+
+    /* HOME */
+    #home {
+      background: var(--bg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    #home::before {
+      content: 'S';
+      font-family: var(--serif);
+      font-size: 38vw;
+      color: var(--surface);
+      position: absolute;
+      right: -4vw;
+      top: 50%;
+      transform: translateY(-50%);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    .home-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .home-greeting {
+      font-family: var(--mono);
+      font-size: 0.85rem;
+      color: var(--ink-muted);
+      margin-bottom: 1rem;
+    }
+
+    .home-name {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 8vw, 6.5rem);
+      line-height: 1.05;
+      color: var(--ink);
+      margin-bottom: 1.25rem;
+    }
+
+    .home-name span {
+      color: var(--accent);
+    }
+
+    .home-tagline {
+      font-size: 1.1rem;
+      color: var(--ink-muted);
+      max-width: 480px;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .home-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--ink);
+      color: var(--bg);
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      padding: 0.85rem 1.75rem;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .home-cta:hover {
+      background: var(--accent);
+    }
+
+    .home-cta .arrow { font-size: 1rem; }
+
+    /* ABOUT */
+    #about { background: var(--surface); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .about-heading {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-body {
+      font-size: 1rem;
+      color: var(--ink-muted);
+      line-height: 1.9;
+      margin-bottom: 1rem;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .stat-box {
+      border-top: 2px solid var(--accent);
+      padding-top: 1rem;
+    }
+
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .stat-desc {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--ink-muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-top: 0.3rem;
+    }
+
+    /* SKILLS */
+    #skills { background: var(--bg); }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    .skill-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.5rem;
+      position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--accent);
+    }
+
+    .skill-category {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .skill-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .skill-items li {
+      font-size: 0.95rem;
+      color: var(--ink);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .skill-items li::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--surface); }
+
+    .projects-intro {
+      font-size: 1rem;
+      color: var(--ink-muted);
+      margin-bottom: 2.5rem;
+      max-width: 560px;
+    }
+
+    .github-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      background: var(--bg);
+      margin-bottom: 2rem;
+      text-decoration: none;
+      color: var(--ink);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .github-banner:hover {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+
+    .gh-left { display: flex; align-items: center; gap: 1.25rem; }
+
+    .gh-icon {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+    }
+
+    .gh-title {
+      font-family: var(--serif);
+      font-size: 1.3rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .gh-sub {
+      font-family: var(--mono);
+      font-size: 0.76rem;
+      color: var(--ink-muted);
+    }
+
+    .gh-arrow {
+      font-size: 1.5rem;
+      color: var(--accent);
+      transition: transform 0.2s;
+    }
+
+    .github-banner:hover .gh-arrow {
+      transform: translateX(5px);
+    }
+
+    .project-note {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: var(--ink-faint);
+      border-left: 2px solid var(--border);
+      padding-left: 1rem;
+      line-height: 1.6;
+    }
+
+    /* CONTACT */
+    #contact { background: var(--ink); }
+
+    #contact .section-label { color: var(--accent); }
+    #contact .section-label::after { background: var(--accent); }
+
+    .contact-heading {
+      font-family: var(--serif);
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      color: var(--bg);
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+
+    .contact-sub {
+      font-size: 1rem;
+      color: var(--ink-faint);
+      max-width: 420px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      text-decoration: none;
+      color: var(--bg);
+      font-size: 1rem;
+      padding: 1rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.12);
+      transition: border-color 0.2s, background 0.2s;
+      max-width: 400px;
+    }
+
+    .contact-link:hover {
+      border-color: var(--accent);
+      background: rgba(200, 82, 26, 0.08);
+    }
+
+    .contact-link-label {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+      display: block;
+      margin-bottom: 2px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .contact-link-value {
+      font-size: 0.95rem;
+      color: var(--bg);
+    }
+
+    .contact-placeholder {
+      font-family: var(--mono);
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.2);
+      margin-top: 0.4rem;
+      font-style: italic;
+    }
+
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 2rem 4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer p {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+      letter-spacing: 0.04em;
+    }
+
+    /* ANIMATIONS */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+      section { padding: 5rem 1.5rem; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .skills-grid { grid-template-columns: 1fr; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+      #home::before { font-size: 55vw; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#home">Sumal.</a>
+    <ul class="nav-links">
+      <li><a href="#home">home</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#projects">projects</a></li>
+      <li><a href="#contact">contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME -->
+  <section id="home">
+    <div class="section-inner home-inner">
+      <p class="home-greeting fade-up">Hi, I'm</p>
+      <h1 class="home-name fade-up">Sumal<span>.</span></h1>
+      <p class="home-tagline fade-up">MCA student & web developer who loves building things — from Django backends to clean front-ends.</p>
+      <a href="#projects" class="home-cta fade-up">View my work <span class="arrow">→</span></a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <p class="section-label fade-up">About</p>
+      <div class="about-grid">
+        <div>
+          <h2 class="about-heading fade-up">Student.<br>Builder.<br>Problem solver.</h2>
+        </div>
+        <div>
+          <p class="about-body fade-up">
+            I'm Sumal, currently pursuing my Master of Computer Applications (MCA). I'm deeply interested in software development, particularly in building practical web applications that solve real problems.
+          </p>
+          <p class="about-body fade-up">
+            My journey in tech has taken me through multiple languages and paradigms — from low-level logic in C to building full-stack web apps with Django and JavaScript. I'm always learning and always building.
+          </p>
+          <div class="about-stats fade-up">
+            <div class="stat-box">
+              <div class="stat-num">5+</div>
+              <div class="stat-desc">Languages known</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num">MCA</div>
+              <div class="stat-desc">Post graduation</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-inner">
+      <p class="section-label fade-up">Skills</p>
+      <div class="skills-grid">
+        <div class="skill-card fade-up">
+          <p class="skill-category">Languages</p>
+          <ul class="skill-items">
+            <li>Python</li>
+            <li>JavaScript</li>
+            <li>Java</li>
+            <li>C</li>
+          </ul>
+        </div>
+        <div class="skill-card fade-up">
+          <p class="skill-category">Web & Frameworks</p>
+          <ul class="skill-items">
+            <li>Django</li>
+            <li>HTML & CSS</li>
+            <li>JavaScript (DOM)</li>
+          </ul>
+        </div>
+        <div class="skill-card fade-up">
+          <p class="skill-category">Core Concepts</p>
+          <ul class="skill-items">
+            <li>Data Structures</li>
+            <li>DBMS</li>
+            <li>Object-Oriented Programming</li>
+            <li>Algorithms</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="section-inner">
+      <p class="section-label fade-up">Projects</p>
+      <p class="projects-intro fade-up">Here are things I've built and experimented with. All projects live on GitHub — feel free to explore, fork, or reach out.</p>
+      <a href="https://github.com/sumal-ek" target="_blank" class="github-banner fade-up">
+        <div class="gh-left">
+          <svg class="gh-icon" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="#1a1814"/>
+          </svg>
+          <div>
+            <div class="gh-title">github.com/sumal-ek</div>
+            <div class="gh-sub">All repositories · Open source projects</div>
+          </div>
+        </div>
+        <span class="gh-arrow">→</span>
+      </a>
+      <p class="project-note fade-up">
+        Want to add individual project cards here? Just drop me the names and descriptions of your projects and I'll add them to this page.
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="section-inner">
+      <p class="section-label fade-up">Contact</p>
+      <h2 class="contact-heading fade-up">Let's work<br>together.</h2>
+      <p class="contact-sub fade-up">Open to collaborations, internship opportunities, or just a good tech conversation.</p>
+      <div class="contact-links fade-up">
+        <a href="https://github.com/sumal-ek" target="_blank" class="contact-link">
+          <svg width="22" height="22" viewBox="0 0 98 96" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z" fill="#f5f2ec"/></svg>
+          <div>
+            <span class="contact-link-label">GitHub</span>
+            <span class="contact-link-value">github.com/sumal-ek</span>
+          </div>
+        </a>
+        <div class="contact-link" style="cursor:default;opacity:0.5">
+          <svg width="22" height="22" fill="none" stroke="#f5f2ec" stroke-width="1.5" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <div>
+            <span class="contact-link-label">Email</span>
+            <span class="contact-link-value" style="color:rgba(245,242,236,0.4)">Add your email here</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2026 Sumal. All rights reserved.</p>
+    <p>Built with HTML · CSS · JS</p>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
